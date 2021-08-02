@@ -32,7 +32,6 @@
                 <tr>
                     <td class="text-center">ID</td>
                     <td class="text-center">Nombre</td>
-                    <td class="text-center">Actualizar</td>
                     <td class="text-center">Eliminar</td>
                 </tr>
             </thead>
@@ -45,5 +44,6 @@
 @endsection
 
 @section("javascript")
-
+<script src="{{asset('js/servicios/categoriasService.js')}}"></script>
+<script src="{{asset('js/panel.js')}}"></script>
 @endsection
