@@ -2,15 +2,24 @@
 
 @section("navbar")
 <li class="nav-item">
+    <a class="nav-link" href="{{route('usuarios')}}">Usuarios</a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="{{route('panel')}}">Categorias</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{route('productos')}}">Productos</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{route('proveedores')}}">Proveedores</a>
 </li>
 @endsection
 
-@section("contenido")
+@section("content")
 <div class="row">
     <div class="col-8 col-md-5 col-lg-5">
         <div class="card">
-            <div class="card-header text-center text-light bg-info">
+            <div class="card-header text-center bg-info">
                 <span>Agregar Categoria</span>
             </div>
             <div class="card-body">
