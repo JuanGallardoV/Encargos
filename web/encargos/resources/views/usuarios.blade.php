@@ -11,15 +11,11 @@
     <a class="nav-link" href="{{route('productos')}}">Productos</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{route('proveedores')}}">Proveedores</a>
+    <a class="nav-link" href="{{route('ventas')}}">Ventas</a>
 </li>
 @endsection
 
 @section("content")
-
-@endsection
-
-@section("javascript")
 <div class="row mt-5">
     <div class="col-12 col-md-12 col-lg-6 mx-auto">
         <table class="table table-hover table-bordered table-striped table-responsive">
@@ -29,6 +25,7 @@
                     <td class="text-center">Nombre</td>
                     <td class="text-center">E-Mail</td>
                     <td class="text-center">Tipo Usuario</td>
+                    <td class="text-center">Cambiar Tipo</td>
                     <td class="text-center">Eliminar</td>
                 </tr>
             </thead>

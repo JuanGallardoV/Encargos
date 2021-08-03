@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriasController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\userController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,6 @@ Route::get("categorias/get",[CategoriasController::class,"getCat"]);
 Route::post("categorias/post",[CategoriasController::class,"crearCategoria"]);
 Route::post("categorias/delete",[CategoriasController::class,"eliminarCategoria"]);
 //Usuarios
-Route::get("usuarios/get",[HomeController::class,"getUsers"]);
-Route::post("usuarios/delete",[HomeController::class,"eliminarUser"]);
-Route::post("usuarios/actualizar",[HomeController::class,"actualizarUser"]);
+Route::get("usuarios/get",[userController::class,"getUsers"]);
+Route::post("usuarios/delete",[userController::class,"eliminarUser"]);
+Route::post("usuarios/actualizar",[userController::class,"actualizarUser"]);

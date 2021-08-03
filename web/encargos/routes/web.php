@@ -19,6 +19,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::view("/admin","panel")->name("panel");
-Route::view("/admin/productos","productos")->name("productos");
-Route::view("/admin/usuarios","usuarios")->name("usuarios");
-Route::view("/admin/proveedores","proveedores")->name("proveedores");
+Route::view("/productos","productos")->name("productos");
+Route::view("/usuarios","usuarios")->name("usuarios");
+Route::view("/ventas","ventas")->name("ventas");

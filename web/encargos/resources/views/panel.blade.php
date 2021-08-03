@@ -11,7 +11,7 @@
     <a class="nav-link" href="{{route('productos')}}">Productos</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{route('proveedores')}}">Proveedores</a>
+    <a class="nav-link" href="{{route('ventas')}}">Ventas</a>
 </li>
 @endsection
 
