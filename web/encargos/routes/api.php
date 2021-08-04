@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\ProveedorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,7 @@ Route::post("categorias/delete",[CategoriasController::class,"eliminarCategoria"
 Route::get("usuarios/get",[userController::class,"getUsers"]);
 Route::post("usuarios/delete",[userController::class,"eliminarUser"]);
 Route::post("usuarios/actualizar",[userController::class,"actualizarUser"]);
+//Proveedores
+Route::get("proveedores/get",[ProveedorController::class,"getProveedores"]);
+Route::post("proveedores/post",[ProveedorController::class,"crearProveedor"]);
+Route::post("proveedores/delete",[ProveedorController::class,"eliminarProveedor"]);

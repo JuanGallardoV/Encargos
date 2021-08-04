@@ -11,6 +11,9 @@
     <a class="nav-link" href="{{route('productos')}}">Productos</a>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="{{route('proveedores')}}">Proveedores</a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="{{route('ventas')}}">Ventas</a>
 </li>
 @endsection
@@ -20,7 +23,7 @@
     <div class="col-8 col-md-5 col-lg-5">
         <div class="card">
             <div class="card-header text-center bg-info">
-                <span>Agregar Categoria</span>
+                <span>Crear Categoria</span>
             </div>
             <div class="card-body">
                 <div class="mb-3">

@@ -13,7 +13,9 @@ document.querySelector("#registrar-btn").addEventListener("click",async ()=>{
     if(errores.length == 0){
         let categoria = {};
         categoria.nombre = nombre;
-        let res = await crearCategoria(categoria);
+        await crearCategoria(categoria);
+        let categorias = await getCat();
+        cargarTabla(categorias);
         await Swal.fire("Categoria Creada","Categoria creada exitosamente","success");
     }else{
         Swal.fire({
@@ -32,7 +34,7 @@ const eliminar = async function (){
         if(await eliminarCategoria(id)){
             let categorias = await getCat(); 
             cargarTabla(categorias);
-            Swal.fire("Categoria Eliminada","Categoria eliminada exitosamente","info");
+            Swal.fire("Categoria Eliminada","Categoria eliminada exitosamente","success");
         }else{
             Swal.fire("Error","No se puede atender la solicitud","error");
         }
