@@ -24,3 +24,12 @@ const eliminarProveedor = async(id)=>{
         return false;
     }
 };
+
+const editarProveedor = async(proveedor)=>{
+    let resp = await axios.post("api/proveedores/editar",proveedor,{
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    });
+    return resp.data;
+};

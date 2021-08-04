@@ -28,4 +28,15 @@ class ProveedorController extends Controller
         $proveedor->delete();
         return "ok";
     }
+
+    public function editarProveedor(Request $request){
+        $input = $request->all();
+        $id = $input["id"];
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->name = $input["name"];
+        $proveedor->telefono = $input["telefono"];
+        $proveedor->email = $input["email"];
+        $proveedor->save();
+        return $proveedor;
+    }
 }

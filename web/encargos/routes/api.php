@@ -32,3 +32,4 @@ Route::post("usuarios/actualizar",[userController::class,"actualizarUser"]);
 Route::get("proveedores/get",[ProveedorController::class,"getProveedores"]);
 Route::post("proveedores/post",[ProveedorController::class,"crearProveedor"]);
 Route::post("proveedores/delete",[ProveedorController::class,"eliminarProveedor"]);
+Route::post("proveedores/editar",[ProveedorController::class,"editarProveedor"]);
