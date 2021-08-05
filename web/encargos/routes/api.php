@@ -24,6 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get("categorias/get",[CategoriasController::class,"getCat"]);
 Route::post("categorias/post",[CategoriasController::class,"crearCategoria"]);
 Route::post("categorias/delete",[CategoriasController::class,"eliminarCategoria"]);
+Route::post("categorias/editar",[CategoriasController::class,"editarCategoria"]);
 //Usuarios
 Route::get("usuarios/get",[userController::class,"getUsers"]);
 Route::post("usuarios/delete",[userController::class,"eliminarUser"]);

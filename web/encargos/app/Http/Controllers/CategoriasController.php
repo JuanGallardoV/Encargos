@@ -25,5 +25,12 @@ class CategoriasController extends Controller
         $categoria->delete();
         return "ok";
     }
+    public function editarCategoria(Request $request){
+        $input = $request->all();
+        $id = $input["id"];
+        $categoria = Categoria::findOrFail($id);
+        $categoria->nombre = $input["nombre"];
+        $categoria->save();
+        return $categoria;
+    }
 }
-//TO DO: ACTUALIZAR CATEGORIA OR NOT, IDK

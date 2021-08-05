@@ -43,6 +43,37 @@ const eliminar = async function (){
     }
 };
 
+const editar = async function(){
+    let categoria = this.categoria;
+    const{ value: nombre } = await Swal.fire({
+        title: "Editar Categoria",
+        input: "text",
+        inputLabel:"Nuevo Nombre",
+        inputPlaceholder:"Ingrese un nombre",
+        inputValue: categoria.nombre,
+        showCancelButton: true,
+        inputValidator: async (nombre)=>{
+            if(!nombre){
+                return "Debe ingresar un nombre"
+            }else{
+                let categorias = await getCat();
+                let catEncontrada = categorias.find(c =>c.nombre.toLowerCase()=== nombre.toLowerCase());
+                if(catEncontrada != undefined && categoria.id!=catEncontrada.id){
+                return "La categoria ya existe"
+                }
+            }
+        }
+    });
+    categoria.nombre = nombre;
+    if(await editarCategoria(categoria)){
+        let categorias = await getCat();
+        cargarTabla(categorias);
+        Swal.fire("Categoria Actualizada","Categoria actualizada exitosamente","success");
+    }else{
+        Swal.fire("Error","No se puede atender la solicitud","error");
+    }
+};
+
 const cargarTabla = (categorias)=>{
     let tbody = document.querySelector("#tbody-categorias");
     tbody.innerHTML = "";
@@ -53,18 +84,29 @@ const cargarTabla = (categorias)=>{
         let tdNombre = document.createElement("td");
         tdNombre.innerText = categorias[i].nombre;
         tdNombre.classList.add("text-center");
+        let tdEditar = document.createElement("td");
+        let botonEditar = document.createElement("button");
+        let divEditar = document.createElement("div");
         let tdEliminar = document.createElement("td");
         let botonEliminar = document.createElement("button");
-        let div = document.createElement("div");
-        div.classList.add("d-grid" ,"gap-2");
+        let divEliminar = document.createElement("div");
+        divEditar.classList.add("d-grid","gap-2");
+        botonEditar.innerText = "Editar";
+        botonEditar.classList.add("btn","btn-success");
+        botonEditar.categoria = categorias[i];
+        botonEditar.addEventListener("click",editar);
+        divEliminar.classList.add("d-grid" ,"gap-2");
         botonEliminar.innerText = "Eliminar";
         botonEliminar.classList.add("btn","btn-danger");
         botonEliminar.idCategoria = categorias[i].id;
         botonEliminar.addEventListener("click",eliminar);
-        div.appendChild(botonEliminar);
-        tdEliminar.appendChild(div);
+        divEditar.appendChild(botonEditar);
+        tdEditar.appendChild(divEditar);
+        divEliminar.appendChild(botonEliminar);
+        tdEliminar.appendChild(divEliminar);
         tr.appendChild(tdID);
         tr.appendChild(tdNombre);
+        tr.appendChild(tdEditar);
         tr.appendChild(tdEliminar);
         tbody.appendChild(tr);
     }

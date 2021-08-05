@@ -44,6 +44,7 @@
                 <tr>
                     <td class="text-center">ID</td>
                     <td class="text-center">Nombre</td>
+                    <td class="text-center">Editar</td>
                     <td class="text-center">Eliminar</td>
                 </tr>
             </thead>

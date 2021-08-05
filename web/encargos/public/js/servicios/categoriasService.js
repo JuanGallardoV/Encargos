@@ -24,3 +24,12 @@ const eliminarCategoria = async(id)=>{
         return false;
     }
 };
+
+const editarCategoria = async(categoria)=>{
+    let resp = await axios.post("api/categorias/editar",categoria,{
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    });
+    return resp.data;
+};

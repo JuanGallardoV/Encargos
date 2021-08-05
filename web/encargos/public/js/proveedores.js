@@ -60,8 +60,8 @@ const eliminar = async function (){
 const editar = async function(){
     let proveedor = this.proveedor;
     let errores = [];
-    let NuevoProveedor = {};
-    let resp = await Swal.fire({
+    let nuevoProveedor = {};
+    await Swal.fire({
         title: "Editar Proveedor",
         html:
         '<input value= '+proveedor.name+' id="name" type="text" class="swal2-input" placeholder="Nombre">' +
@@ -69,31 +69,31 @@ const editar = async function(){
         '<input value= '+proveedor.email+' id="email" type="email" class="swal2-input" placeholder="Correo Electronico">',
         showCancelButton:true,
         preConfirm: async()=> {
-            NuevoProveedor.id = this.proveedor.id;
-                NuevoProveedor.name =document.getElementById('name').value.trim();
-                NuevoProveedor.telefono = parseInt(document.getElementById('telefono').value.trim(),10);
-                NuevoProveedor.email = document.getElementById('email').value.trim();
-            if(NuevoProveedor.name ==""){
+            nuevoProveedor.id = this.proveedor.id;
+                nuevoProveedor.name =document.getElementById('name').value.trim();
+                nuevoProveedor.telefono = parseInt(document.getElementById('telefono').value.trim(),10);
+                nuevoProveedor.email = document.getElementById('email').value.trim();
+            if(nuevoProveedor.name ==""){
                 errores.push("Debe Ingresar un nombre");
             }
-            if(NuevoProveedor.telefono.length == 0){
+            if(nuevoProveedor.telefono.length == 0){
                 errores.push("Debe ingresar un número telefonico");
-            }else if((NuevoProveedor.telefono.length<9) || (NuevoProveedor.telefono.length>9)){
+            }else if((nuevoProveedor.telefono.length<9) || (nuevoProveedor.telefono.length>9)){
                 errores.push ("Ingrese un numero válido (Sin el +56)");
             }
-            if(NuevoProveedor.email ==""){
+            if(nuevoProveedor.email ==""){
                 errores.push("Debe Ingresar un correo");
-            }else if((!NuevoProveedor.email.includes("@"))||(!NuevoProveedor.email.includes("."))){
+            }else if((!nuevoProveedor.email.includes("@"))||(!nuevoProveedor.email.includes("."))){
                     errores.push("Debe Ingresar un correo válido");
             }else{
                 let proveedores = await getProveedores();
-                let provEncontrado = proveedores.find(p =>p.email.toLowerCase()===NuevoProveedor.email.toLowerCase());
-                if((provEncontrado != undefined)&&NuevoProveedor.id!=provEncontrado.id){
+                let provEncontrado = proveedores.find(p =>p.email.toLowerCase()===nuevoProveedor.email.toLowerCase());
+                if((provEncontrado != undefined)&&nuevoProveedor.id!=provEncontrado.id){
                     errores.push("El proveedor ya esta en la lista");
                 }
             }
             if(errores.length == 0){
-                if(await editarProveedor(NuevoProveedor)){
+                if(await editarProveedor(nuevoProveedor)){
                     let proveedores = await getProveedores();
                     cargarTabla(proveedores);
                     Swal.fire("Proveedor Actualizado","Proveedor actualizado","success");
@@ -105,7 +105,7 @@ const editar = async function(){
                     title: "Error",
                     icon: "warning",
                     html: errores.join("<br />")
-                })
+                });
             }
         }
     });
@@ -127,7 +127,7 @@ const cargarTabla = (proveedores)=>{
         let tdEditar = document.createElement("td");
         let botonEditar = document.createElement("button");
         let divEditar = document.createElement("div");
-        divEditar.classList.add("d-grip","gap-2");
+        divEditar.classList.add("d-grid","gap-2");
         botonEditar.innerText = "Editar";
         botonEditar.classList.add("btn","btn-success");
         botonEditar.proveedor = proveedores[i];
