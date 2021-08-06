@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,7 @@ Route::get("proveedores/get",[ProveedorController::class,"getProveedores"]);
 Route::post("proveedores/post",[ProveedorController::class,"crearProveedor"]);
 Route::post("proveedores/delete",[ProveedorController::class,"eliminarProveedor"]);
 Route::post("proveedores/editar",[ProveedorController::class,"editarProveedor"]);
+//Productos
+Route::get("productos/get",[ProductController::class,"getProductos"]);
+Route::post("productos/post",[ProductController::class,"crearProducto"]);
+
