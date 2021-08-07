@@ -65,13 +65,13 @@ const editar = async function(){
         title: "Editar Proveedor",
         html:
         '<input value= '+proveedor.name+' id="name" type="text" class="swal2-input" placeholder="Nombre">' +
-        '<input value= '+proveedor.telefono+' id="telefono" type="text" class="swal2-input" placeholder="Telefono">'+
+        '<input value= '+proveedor.telefono+' id="telefono" type="number" class="swal2-input" placeholder="Telefono">'+
         '<input value= '+proveedor.email+' id="email" type="email" class="swal2-input" placeholder="Correo Electronico">',
         showCancelButton:true,
         preConfirm: async()=> {
             nuevoProveedor.id = this.proveedor.id;
                 nuevoProveedor.name =document.getElementById('name').value.trim();
-                nuevoProveedor.telefono = parseInt(document.getElementById('telefono').value.trim(),10);
+                nuevoProveedor.telefono = document.getElementById('telefono').value.trim();
                 nuevoProveedor.email = document.getElementById('email').value.trim();
             if(nuevoProveedor.name ==""){
                 errores.push("Debe Ingresar un nombre");

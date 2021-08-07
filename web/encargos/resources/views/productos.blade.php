@@ -43,10 +43,6 @@
                             <label for="categoria-select">Categoria:</label>
                             <select id="categoria-select" class="form-select"></select>
                         </div>
-                        <div class="mb-3">
-                            <label for="imagen">Imagen:</label>
-                            <input class="form-control" type="file" name="imagen" id="imagen">
-                        </div>
                     </div>
                     <div class="card-footer">
                         <div class="d-grid gap-2">
@@ -61,7 +57,6 @@
             <thead class="bg-info">
                 <tr>
                     <td class="text-center">ID</td>
-                    <td class="text-center">Imagen</td>
                     <td class="text-center">Nombre</td>
                     <td class="text-center">Precio</td>
                     <td class="text-center">Stock</td>

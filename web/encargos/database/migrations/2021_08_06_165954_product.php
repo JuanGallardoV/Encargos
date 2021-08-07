@@ -19,7 +19,6 @@ class Product extends Migration
             $table->integer("precio")->unsigned();
             $table->smallInteger("stock")->unsigned();
             $table->bigInteger("categoria_id")->unsigned();
-            $table->string("imagen");
             $table->foreign("categoria_id")->references("id")->on("categorias")->onDelete("cascade");
             $table->timestamps();
         });

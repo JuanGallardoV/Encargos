@@ -38,4 +38,5 @@ Route::post("proveedores/editar",[ProveedorController::class,"editarProveedor"])
 //Productos
 Route::get("productos/get",[ProductController::class,"getProductos"]);
 Route::post("productos/post",[ProductController::class,"crearProducto"]);
-
+Route::post("productos/delete",[ProductController::class,"eliminarProducto"]);
+Route::post("productos/editar",[ProductController::class,"editarProducto"]);

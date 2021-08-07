@@ -24,3 +24,12 @@ const eliminarProducto = async(id)=>{
         return false;
     }
 };
+
+const editarProducto = async(producto)=>{
+    let resp = await axios.post("api/productos/editar",producto,{
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    });
+    return resp.data;
+};
