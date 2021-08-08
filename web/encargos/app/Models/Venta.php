@@ -12,4 +12,8 @@ class Venta extends Model
     public function user(){
         return $this->belongsTo("App\Models\User","cliente_id");
     }
+
+    public function detalle(){
+        return $this->hasMany("App\Models\Detalle","venta_id");
+    }
 }

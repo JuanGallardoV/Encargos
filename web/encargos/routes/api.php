@@ -7,6 +7,7 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VentaController;
+use App\Http\Controllers\detalleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,3 +47,8 @@ Route::get("ventas/filtrar",[VentaController::class,"filtrarVentas"]);
 Route::post("ventas/post",[VentaController::class,"crearVenta"]);
 Route::post("ventas/delete",[VentaController::class,"eliminarVenta"]);
 Route::post("ventas/actualizar",[VentaController::class,"actualizarVenta"]);
+//Detalles
+Route::get("detalles/get",[detalleController::class,"getDetalles"]);
+Route::get("detalles/filtrar",[detalleController::class,"filtrarDetalles"]);
+Route::post("detalles/post",[detalleController::class,"crearDetalle"]);
+Route::post("detalle/delete",[detalleController::class,"elimnarDetalle"]);

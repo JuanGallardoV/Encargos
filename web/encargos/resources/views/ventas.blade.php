@@ -55,11 +55,10 @@
             <thead class="bg-info">
                 <tr>
                     <td>ID</td>
-                    <td>ID Boleta</td>
+                    <td>ID Venta</td>
                     <td>Producto</td>
                     <td>Cantidad</td>
                     <td>Subtotal</td>
-                    <td>Editar</td>
                     <td>Eliminar</td>
                 </tr>
             </thead>
@@ -72,7 +71,9 @@
 @endsection
 
 @section("javascript")
+<script src="{{asset('js/servicios/productosService.js')}}"></script>
 <script src="{{asset('js/servicios/usuariosService.js')}}"></script>
+<script src="{{asset('js/servicios/detallesService.js')}}"></script>
 <script src="{{asset('js/servicios/ventasService.js')}}"></script>
 <script src="{{asset('js/ventas.js')}}"></script>
 @endsection
