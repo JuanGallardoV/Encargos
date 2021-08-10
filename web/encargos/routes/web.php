@@ -23,3 +23,4 @@ Route::view("/productos","productos")->name("productos");
 Route::view("/usuarios","usuarios")->name("usuarios");
 Route::view("/ventas","ventas")->name("ventas");
 Route::view("/proveedores","proveedores")->name("proveedores");
+Route::view("/carrito","carrito")->name("carrito");

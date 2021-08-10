@@ -2,19 +2,22 @@
 
 @section("navbar")
 <li class="nav-item">
-    <a class="nav-link" href="{{route('usuarios')}}">Usuarios</a>
+    <a class="nav-link fs-4 animate__animated animate__slideInDown" href="{{route('usuarios')}}">Usuarios</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{route('panel')}}">Categorias</a>
+    <a class="nav-link fs-4 animate__animated animate__slideInDown" href="{{route('panel')}}">Categorias</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{route('productos')}}">Productos</a>
+    <a class="nav-link fs-4 animate__animated animate__slideInDown" href="{{route('productos')}}">Productos</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{route('proveedores')}}">Proveedores</a>
+    <a class="nav-link fs-4 animate__animated animate__slideInDown" href="{{route('proveedores')}}">Proveedores</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{route('ventas')}}">Ventas</a>
+    <a class="nav-link fs-4 animate__animated animate__slideInDown" href="{{route('ventas')}}">Ventas</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link fs-4 animate__animated animate__slideInDown" href="{{route('carrito')}}">Carrito</a>
 </li>
 @endsection
 
