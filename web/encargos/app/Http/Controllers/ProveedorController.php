@@ -11,10 +11,14 @@ class ProveedorController extends Controller
         return $proveedores;
     }
 
+    public function vista(){
+        return view(view:'proveedores.crear');
+    }
+
     public function crearProveedor(Request $request){
         $input = $request->all();
         $proveedor = new Proveedor();
-        $proveedor->name = $input["name"];
+        $proveedor->nombre = $input["nombre"];
         $proveedor->telefono = $input["telefono"];
         $proveedor->email = $input["email"];
         $proveedor->save();
@@ -33,7 +37,7 @@ class ProveedorController extends Controller
         $input = $request->all();
         $id = $input["id"];
         $proveedor = Proveedor::findOrFail($id);
-        $proveedor->name = $input["name"];
+        $proveedor->nombre = $input["nombre"];
         $proveedor->telefono = $input["telefono"];
         $proveedor->email = $input["email"];
         $proveedor->save();

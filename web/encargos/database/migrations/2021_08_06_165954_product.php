@@ -18,7 +18,11 @@ class Product extends Migration
             $table->string("nombre");
             $table->integer("precio")->unsigned();
             $table->smallInteger("stock")->unsigned();
+            $table->integer("precio_compra")->unsigned();
             $table->bigInteger("categoria_id")->unsigned();
+            $table->bigInteger("proveedor_id")->unsigned();
+            //$table->smallInteger("detalles")->unsigned()->default(0);
+            $table->foreign("proveedor_id")->references("id")->on("proveedors")->onDelete("cascade");
             $table->foreign("categoria_id")->references("id")->on("categorias")->onDelete("cascade");
             $table->timestamps();
         });

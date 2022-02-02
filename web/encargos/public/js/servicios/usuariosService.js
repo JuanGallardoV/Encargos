@@ -10,21 +10,21 @@ const eliminarUser = async(id)=>{
                 "Content-Type": "application/json"
             }
         });
-    return resp.data == "ok";
+        return resp.data;
     }catch(e){
         return false;
     }
 };
 
-const actualizarUser = async(id)=>{
-    try{
-        let resp = await axios.post("api/usuarios/actualizar", {id},{
-            headers:{
-                "Content-Type": "application/json"
-            }
-        });
-        return resp.data == "ok";
-    }catch(e){
-        return false;
-    }
-};
+// const actualizarUser = async(id)=>{
+//     try{
+//         let resp = await axios.post("api/usuarios/actualizar", {id},{
+//             headers:{
+//                 "Content-Type": "application/json"
+//             }
+//         });
+//         return resp.data == "ok";
+//     }catch(e){
+//         return false;
+//     }
+// };

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Venta;
+use App\Models\Detalle;
 use Illuminate\Http\Request;
 
 class VentaController extends Controller
@@ -9,6 +10,10 @@ class VentaController extends Controller
     public function getVentas(){
         $ventas = Venta::all();
         return $ventas;
+    }
+
+    public function vista(){
+        return view(view:'ventas.crearVenta');
     }
 
     public function filtrarVentas(Request $request){
@@ -21,8 +26,15 @@ class VentaController extends Controller
     public function crearVenta(Request $request){
         $input = $request->all();
         $venta = new Venta();
-        $venta->cliente_id = $input["cliente_id"];
-        $venta->total = $input["total"];
+        $venta->fecha = $input["fecha"];
+        // $id=$input->id;
+        // $detalles =Detalle::where("venta_id","id")->get();
+        // foreach($detalles as $detalle){
+        //     $total = $total + $detalle->subtotal;
+        // }
+        // $venta->total = $total;
+        $venta->num_boleta = $input["boleta"];
+        $venta->total = 0;
         $venta->save();
         return $venta;
     }
@@ -37,13 +49,17 @@ class VentaController extends Controller
 
     public function actualizarVenta (Request $request){
         $input = $request->all();
-        $id = $input["id"];
+        $id=$input["id"];
         $venta = Venta::findOrFail($id);
-        if($venta->estado == 0){
-            $venta->estado = 1;
-        }else{
-            $venta->estado = 0;
+        $nuevototal = 0;
+        $detalles =Detalle::where("venta_id",$id)->get();
+        foreach($detalles as $detalle){
+            $nuevototal = $nuevototal + $detalle->subtotal;
         }
+        $venta->total = $nuevototal;
+        // $id = $input["venta_id"];
+        // $venta = Venta::findOrFail($id);
+        // $venta->total = $venta->total + $request["subtotal"];
         $venta->save();
         return "ok";
     }

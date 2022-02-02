@@ -19,14 +19,21 @@ class detalleController extends Controller
         return $detalles;
     }
 
+    public function vista(){
+        return view(view:'ventas.crearDetalle');
+    }
+
     public function crearDetalle(Request $request){
         $input = $request->all();
         $detalle = new Detalle();
         $detalle->venta_id = $input["venta_id"];
         $detalle->producto_id = $input["producto_id"];
         $detalle->cantidad = $input["cantidad"];
-        $precio = Product::findOrFail($detalle->producto_id)->precio;
+        $producto = Product::findOrFail($detalle->producto_id);
+        $precio = $producto->precio;
+        $producto->stock = $producto->stock - $detalle->cantidad;
         $detalle->subtotal = $precio*$detalle->cantidad;
+        $producto->save();
         $detalle->save();
         return $detalle;
     }

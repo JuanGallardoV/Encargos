@@ -1,5 +1,5 @@
 const getCat = async()=>{
-    let resp = await axios.get("api/categorias/get");
+    let resp = await axios.get("api/createCategoria/get");
     return resp.data;
 };
 

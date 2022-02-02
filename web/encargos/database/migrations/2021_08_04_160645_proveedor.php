@@ -15,7 +15,7 @@ class Proveedor extends Migration
     {
         Schema::create('proveedors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre');
             $table->integer('telefono')->unsigned();
             $table->string('email')->unique();
             $table->timestamps();

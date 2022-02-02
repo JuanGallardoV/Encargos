@@ -3,6 +3,7 @@ const getProveedores = async()=>{
     return resp.data;
 };
 
+
 const crearProveedor = async(proveedor)=>{
     let resp = await axios.post("api/proveedores/post",proveedor,{
         headers:{

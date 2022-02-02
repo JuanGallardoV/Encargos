@@ -1,5 +1,10 @@
-const getProductos = async()=>{
-    let resp = await axios.get("api/productos/get");
+const getProductos = async (filtro = "0")=>{
+    let resp;
+    if(filtro == "0"){
+        resp = await axios.get("api/productos/get");
+    }else{
+        resp = await axios.get(`api/productos/filtrar?filtro=${filtro}`);
+    }
     return resp.data;
 };
 
@@ -19,7 +24,7 @@ const eliminarProducto = async(id)=>{
                 'Content-Type': 'application/json'
             }
         });
-        return resp.data =="ok";
+        return resp.data;
     }catch(e){
         return false;
     }

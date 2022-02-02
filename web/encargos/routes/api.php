@@ -8,6 +8,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\detalleController;
+use App\Http\Controllers\CambioController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 //Categorias
-Route::get("categorias/get",[CategoriasController::class,"getCat"]);
+Route::get("createCategoria/get",[CategoriasController::class,"getCat"]);
 Route::post("categorias/post",[CategoriasController::class,"crearCategoria"]);
 Route::post("categorias/delete",[CategoriasController::class,"eliminarCategoria"]);
 Route::post("categorias/editar",[CategoriasController::class,"editarCategoria"]);
@@ -41,6 +42,7 @@ Route::get("productos/get",[ProductController::class,"getProductos"]);
 Route::post("productos/post",[ProductController::class,"crearProducto"]);
 Route::post("productos/delete",[ProductController::class,"eliminarProducto"]);
 Route::post("productos/editar",[ProductController::class,"editarProducto"]);
+Route::get("productos/filtrar",[ProductController::class,"filtrarProductos"]);
 //Ventas
 Route::get("ventas/get",[VentaController::class,"getVentas"]);
 Route::get("ventas/filtrar",[VentaController::class,"filtrarVentas"]);
@@ -51,4 +53,8 @@ Route::post("ventas/actualizar",[VentaController::class,"actualizarVenta"]);
 Route::get("detalles/get",[detalleController::class,"getDetalles"]);
 Route::get("detalles/filtrar",[detalleController::class,"filtrarDetalles"]);
 Route::post("detalles/post",[detalleController::class,"crearDetalle"]);
-Route::post("detalle/delete",[detalleController::class,"elimnarDetalle"]);
+Route::post("detalles/delete",[detalleController::class,"eliminarDetalle"]);
+//Cambios
+Route::get("cambios/get",[CambioController::class,"getCambios"]);
+Route::post("cambios/post",[CambioController::class,"crearCambio"]);
+Route::get("cambios/filtrar",[CambioController::class,"filtrarCambios"]);

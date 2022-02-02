@@ -17,82 +17,72 @@ const eliminar = async function(){
     }
 };
 
-const editarVenta = async function (){
-    let id = this.idVenta;
-    let resp = await Swal.fire({title:"¿Desea cambiar el estado de la venta?",text:"Podrá cambiarlo mas adelante"
-    , icon:"info",showCancelButton:true});
-    if(resp.isConfirmed){
-        if(await actualizarVenta(id)){
-            let ventas = await getVentas();
-            cargarTablaVenta(ventas);
-            Swal.fire("Venta Actualizada","El cambio fue exitoso","success");
-        }else{
-            Swal.fire("Error","No se puede atender la solicitud","error");
-        }
-    }else{
-        Swal.fire("Cancelado","Cancelado a peticion del usuario","info");
-    }
-};
+document.querySelector("#agregar-btn").addEventListener("click",()=>{
+    window.location.href="createVenta";
+});
+document.querySelector("#agregar-detalle-btn").addEventListener("click",()=>{
+    window.location.href="createDetalle";
+});
+// const editarVenta = async function (){
+//     let id = this.idVenta;
+//     let resp = await Swal.fire({title:"¿Desea cambiar el estado de la venta?",text:"Podrá cambiarlo mas adelante"
+//     , icon:"info",showCancelButton:true});
+//     if(resp.isConfirmed){
+//         if(await actualizarVenta(id)){
+//             let ventas = await getVentas();
+//             cargarTablaVenta(ventas);
+//             Swal.fire("Venta Actualizada","El cambio fue exitoso","success");
+//         }else{
+//             Swal.fire("Error","No se puede atender la solicitud","error");
+//         }
+//     }else{
+//         Swal.fire("Cancelado","Cancelado a peticion del usuario","info");
+//     }
+// };
 
 const cargarTablaVenta = async(ventas)=>{
-    let tbody = document.querySelector("#tbody-venta");
+    let tbody = document.querySelector("#tbody-ventas");
     tbody.innerHTML = "";
     for(let i=0;i<ventas.length;++i){
         let tr = document.createElement("tr");
         let tdID = document.createElement("td");
         tdID.innerText = ventas[i].id;
-        tdCliente = document.createElement("td");
-        let users = await getUsers();
-        users.forEach(v=>{
-            if(ventas[i].cliente_id==v.id){
-                tdCliente.innerText = v.name;
-            }
-        });
+        tdID.classList.add("text-center");
+        let tdBoleta = document.createElement("td");
+        tdBoleta.innerText = ventas[i].num_boleta;
+        tdBoleta.classList.add("text-center");
+        let tdFecha = document.createElement("td");
+        tdFecha.innerText = ventas[i].fecha;
+        tdFecha.classList.add("text-center");
         let tdTotal = document.createElement("td");
         tdTotal.innerText ="$"+ ventas[i].total;
-        let tdEstado = document.createElement("td");
-        if(ventas[i].estado == 0){
-            tdEstado.innerText = "Pendiente";
-        }else{
-            tdEstado.innerText = "Completado";
-        }
-        let tdEditarVenta = document.createElement("td");
-        let botonEditarVenta = document.createElement("button");
-        let divEditarVenta = document.createElement("div");
-        divEditarVenta.classList.add("d-grid","gap-2");
-        botonEditarVenta.innerText = "EditarVenta";
-        botonEditarVenta.classList.add("btn","btn-success");
-        botonEditarVenta.idVenta = ventas[i].id;
-        botonEditarVenta.addEventListener("click",editarVenta);
-        let tdEliminar = document.createElement("td");
+        tdTotal.classList.add("text-center");
+        let tdAcciones = document.createElement("td");
         let botonEliminar = document.createElement("button");
-        let divEliminar = document.createElement("div");
-        divEliminar.classList.add("d-grid" ,"gap-2");
         botonEliminar.innerText = "Eliminar";
         botonEliminar.classList.add("btn","btn-danger");
         botonEliminar.idVenta = ventas[i].id;
         botonEliminar.addEventListener("click",eliminar);
-        divEditarVenta.appendChild(botonEditarVenta);
-        tdEditarVenta.appendChild(divEditarVenta);
-        divEliminar.appendChild(botonEliminar);
-        tdEliminar.appendChild(divEliminar);
+        tdAcciones.appendChild(botonEliminar);
         tr.appendChild(tdID);
-        tr.appendChild(tdCliente);
+        tr.appendChild(tdBoleta);
+        tr.appendChild(tdFecha);
         tr.appendChild(tdTotal);
-        tr.appendChild(tdEstado);
-        tr.appendChild(tdEditarVenta);
-        tr.appendChild(tdEliminar);
+        tr.appendChild(tdAcciones);
         tbody.appendChild(tr);
     }
 };
 
 const eliminarD = async function(){
-    let id = this.idDetalle;
+    let detalle = this.detalle;
     let resp = await Swal.fire({title: "¿Estas seguro?",text:"Esta operación es irreversible"
     , icon: "error",showCancelButton:true});
     if(resp.isConfirmed){
-        if(await eliminarDetalle(id)){
+        if(await eliminarDetalle(detalle.id)){
+            await actualizarVenta(detalle.venta_id);
             let detalles = await getDetalles();
+            let ventas = await getVentas();
+            cargarTablaVenta(ventas);
             cargarTablaDetalle(detalles);
             Swal.fire("Detalle Eliminado","Detalle de la boleta eliminado exitosamente","success");
         }else{
@@ -104,14 +94,16 @@ const eliminarD = async function(){
 };
 
 const cargarTablaDetalle = async(detalles)=>{
-    let tbody = document.querySelector("#tbody-detalle");
+    let tbody = document.querySelector("#tbody-detalles");
     tbody.innerHTML = "";
     for(let i=0;i<detalles.length;++i){
         let tr = document.createElement("tr");
-        let tdID = document.createElement("td");
-        tdID.innerText = detalles[i].id;
         let tdIDVenta = document.createElement("td");
         tdIDVenta.innerText = detalles[i].venta_id;
+        tdIDVenta.classList.add("text-center");
+        let tdID = document.createElement("td");
+        tdID.innerText = detalles[i].id;
+        tdID.classList.add("text-center");
         let tdProducto = document.createElement("td");
         let productos = await getProductos();
         productos.forEach(p=>{
@@ -119,26 +111,26 @@ const cargarTablaDetalle = async(detalles)=>{
                 tdProducto.innerText = p.nombre;
             }
         });
+        tdProducto.classList.add("text-center");
         let tdCantidad = document.createElement("td");
         tdCantidad.innerText = detalles[i].cantidad;
+        tdCantidad.classList.add("text-center");
         let tdSubtotal = document.createElement("td");
-        tdSubtotal.innerText = "$"+detalles[i].subtotal;
-        let tdEliminar = document.createElement("td");
+        tdSubtotal.innerText ="$"+ detalles[i].subtotal;
+        tdSubtotal.classList.add("text-center");
+        let tdAcciones = document.createElement("td");
         let botonEliminar = document.createElement("button");
-        let divEliminar = document.createElement("div");
-        divEliminar.classList.add("d-grid" ,"gap-2");
         botonEliminar.innerText = "Eliminar";
         botonEliminar.classList.add("btn","btn-danger");
-        botonEliminar.idDetalle = detalles[i].id;
+        botonEliminar.detalle = detalles[i];
         botonEliminar.addEventListener("click",eliminarD);
-        divEliminar.appendChild(botonEliminar);
-        tdEliminar.appendChild(divEliminar);
-        tr.appendChild(tdID);
+        tdAcciones.appendChild(botonEliminar);
         tr.appendChild(tdIDVenta);
+        tr.appendChild(tdID);
         tr.appendChild(tdProducto);
         tr.appendChild(tdCantidad);
         tr.appendChild(tdSubtotal);
-        tr.appendChild(tdEliminar);
+        tr.appendChild(tdAcciones);
         tbody.appendChild(tr);
     }
 };

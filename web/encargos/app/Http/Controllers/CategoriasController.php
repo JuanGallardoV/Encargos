@@ -11,6 +11,10 @@ class CategoriasController extends Controller
         return $cat;
     }
 
+    public function vista(){
+        return view(view:'categorias.crear');
+    }
+
     public function crearCategoria(Request $request){
         $input = $request->all();
         $categoria = new Categoria();
@@ -25,6 +29,7 @@ class CategoriasController extends Controller
         $categoria->delete();
         return "ok";
     }
+
     public function editarCategoria(Request $request){
         $input = $request->all();
         $id = $input["id"];
@@ -33,4 +38,6 @@ class CategoriasController extends Controller
         $categoria->save();
         return $categoria;
     }
+
+
 }

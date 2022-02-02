@@ -1,43 +1,5 @@
-document.querySelector("#registrar-btn").addEventListener("click",async ()=>{
-    let nombre = document.querySelector("#nombre-txt").value.trim();
-    let telefono = document.querySelector("#telefono-txt").value.trim();
-    let email = document.querySelector("#email-txt").value.trim();
-    let errores = [];
-    if(nombre ==""){
-        errores.push("Debe Ingresar un nombre");
-    }
-    if(telefono.length == 0){
-        errores.push("Debe ingresar un número telefonico");
-    }else if((telefono.length<9) || (telefono.length>9)){
-        errores.push ("Ingrese un numero válido (Sin el +56)");
-    }
-    if(email ==""){
-        errores.push("Debe Ingresar un correo");
-    }else if((!email.includes("@"))||(!email.includes("."))){
-            errores.push("Debe Ingresar un correo válido");
-    }else{
-        let proveedores = await getProveedores();
-        let provEncontrado = proveedores.find(p =>p.email.toLowerCase()===email.toLowerCase());
-        if(provEncontrado != undefined){
-            errores.push("El proveedor ya esta en la lista");
-        }
-    }
-    if(errores.length == 0){
-        let proveedor = {};
-        proveedor.name = nombre;
-        proveedor.telefono = telefono;
-        proveedor.email = email;
-        await crearProveedor(proveedor);
-        let proveedores = await getProveedores();
-        cargarTabla(proveedores);
-        await Swal.fire("Proveedor Añadido","Proveedor añadido exitosamente","success");
-    }else{
-        Swal.fire({
-            title: "Error",
-            icon: "warning",
-            html: errores.join("<br />")
-        })
-    }
+document.querySelector("#agregar-btn").addEventListener("click",()=>{
+    window.location.href="createProveedor";
 });
 
 const eliminar = async function (){
@@ -61,21 +23,30 @@ const editar = async function(){
     let proveedor = this.proveedor;
     let errores = [];
     let nuevoProveedor = {};
+    let proveedores = await getProveedores();
     await Swal.fire({
         title: "Editar Proveedor",
         html:
-        '<input value= '+proveedor.name+' id="name" type="text" class="swal2-input" placeholder="Nombre">' +
+        '<h5>Nombre</h5>'+
+        '<input value= '+proveedor.nombre+' id="nombre" type="text" class="swal2-input" placeholder="Nombre">' +
+        '<h5>Telefono</h5>'+
         '<input value= '+proveedor.telefono+' id="telefono" type="number" class="swal2-input" placeholder="Telefono">'+
+        '<h5>Correo Electronico</h5>'+
         '<input value= '+proveedor.email+' id="email" type="email" class="swal2-input" placeholder="Correo Electronico">',
         showCancelButton:true,
         preConfirm: async()=> {
             nuevoProveedor.id = this.proveedor.id;
-                nuevoProveedor.name =document.getElementById('name').value.trim();
+                nuevoProveedor.nombre =document.getElementById('nombre').value.trim();
                 nuevoProveedor.telefono = document.getElementById('telefono').value.trim();
                 nuevoProveedor.email = document.getElementById('email').value.trim();
-            if(nuevoProveedor.name ==""){
+            if(nuevoProveedor.nombre ==""){
                 errores.push("Debe Ingresar un nombre");
-            }
+            }/*else{
+                let provEncontrado = proveedores.find(p=>p.nombre.toLowerCase()===nuevoProveedor.nombre.toLowerCase());
+                if(provEncontrado !=undefined){
+                    errores.push("Debe Ingresar un nombre que no este en la lista");
+                }
+            }*/
             if(nuevoProveedor.telefono.length == 0){
                 errores.push("Debe ingresar un número telefonico");
             }else if((nuevoProveedor.telefono.length<9) || (nuevoProveedor.telefono.length>9)){
@@ -86,7 +57,7 @@ const editar = async function(){
             }else if((!nuevoProveedor.email.includes("@"))||(!nuevoProveedor.email.includes("."))){
                     errores.push("Debe Ingresar un correo válido");
             }else{
-                let proveedores = await getProveedores();
+                //let proveedores = await getProveedores();
                 let provEncontrado = proveedores.find(p =>p.email.toLowerCase()===nuevoProveedor.email.toLowerCase());
                 if((provEncontrado != undefined)&&nuevoProveedor.id!=provEncontrado.id){
                     errores.push("El proveedor ya esta en la lista");
@@ -119,37 +90,35 @@ const cargarTabla = (proveedores)=>{
         let tdID = document.createElement("td");
         tdID.innerText = proveedores[i].id;
         let tdNombre = document.createElement("td");
-        tdNombre.innerText = proveedores[i].name;
+        tdNombre.innerText = proveedores[i].nombre;
         let tdTelefono = document.createElement("td");
         tdTelefono.innerText = "+56"+proveedores[i].telefono;
         let tdEmail = document.createElement("td");
         tdEmail.innerText = proveedores[i].email;
-        let tdEditar = document.createElement("td");
-        let botonEditar = document.createElement("button");
-        let divEditar = document.createElement("div");
-        divEditar.classList.add("d-grid","gap-2");
-        botonEditar.innerText = "Editar";
-        botonEditar.classList.add("btn","btn-success");
-        botonEditar.proveedor = proveedores[i];
-        botonEditar.addEventListener("click",editar);
-        let tdEliminar = document.createElement("td");
+        let tdAcciones = document.createElement("td");
         let botonEliminar = document.createElement("button");
-        let divEliminar = document.createElement("div");
-        divEliminar.classList.add("d-grid" ,"gap-2");
         botonEliminar.innerText = "Eliminar";
         botonEliminar.classList.add("btn","btn-danger");
         botonEliminar.idProveedor = proveedores[i].id;
         botonEliminar.addEventListener("click",eliminar);
-        divEditar.appendChild(botonEditar);
-        tdEditar.appendChild(divEditar);
-        divEliminar.appendChild(botonEliminar);
-        tdEliminar.appendChild(divEliminar);
+        tdNombre.classList.add("text-center");
+        tdTelefono.classList.add("text-center");
+        tdEmail.classList.add("text-center");
+
+        let botonEditar = document.createElement("button");
+        botonEditar.innerText = "Editar";
+        botonEditar.classList.add("btn","btn-success");
+        botonEditar.proveedor = proveedores[i];
+        botonEditar.addEventListener("click",editar);
+
+        tdAcciones.classList.add("text-center");
+        tdAcciones.appendChild(botonEditar);
+        tdAcciones.appendChild(botonEliminar);
         tr.appendChild(tdID);
         tr.appendChild(tdNombre);
         tr.appendChild(tdTelefono);
         tr.appendChild(tdEmail);
-        tr.appendChild(tdEditar);
-        tr.appendChild(tdEliminar);
+        tr.appendChild(tdAcciones);
         tbody.appendChild(tr);
     }
 };
@@ -158,3 +127,53 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     let proveedores = await getProveedores();
     cargarTabla(proveedores);
 });
+
+
+
+
+
+
+
+
+
+// document.querySelector("#registrar-btn").addEventListener("click",async ()=>{
+//     let nombre = document.querySelector("#nombre-txt").value.trim();
+//     let telefono = document.querySelector("#telefono-txt").value.trim();
+//     let email = document.querySelector("#email-txt").value.trim();
+//     let errores = [];
+//     if(nombre ==""){
+//         errores.push("Debe Ingresar un nombre");
+//     }
+//     if(telefono.length == 0){
+//         errores.push("Debe ingresar un número telefonico");
+//     }else if((telefono.length<9) || (telefono.length>9)){
+//         errores.push ("Ingrese un numero válido (Sin el +56)");
+//     }
+//     if(email ==""){
+//         errores.push("Debe Ingresar un correo");
+//     }else if((!email.includes("@"))||(!email.includes("."))){
+//             errores.push("Debe Ingresar un correo válido");
+//     }else{
+//         let proveedores = await getProveedores();
+//         let provEncontrado = proveedores.find(p =>p.email.toLowerCase()===email.toLowerCase());
+//         if(provEncontrado != undefined){
+//             errores.push("El proveedor ya esta en la lista");
+//         }
+//     }
+//     if(errores.length == 0){
+//         let proveedor = {};
+//         proveedor.nombre = nombre;
+//         proveedor.telefono = telefono;
+//         proveedor.email = email;
+//         await crearProveedor(proveedor);
+//         let proveedores = await getProveedores();
+//         cargarTabla(proveedores);
+//         await Swal.fire("Proveedor Añadido","Proveedor añadido exitosamente","success");
+//     }else{
+//         Swal.fire({
+//             title: "Error",
+//             icon: "warning",
+//             html: errores.join("<br />")
+//         })
+//     }
+// });

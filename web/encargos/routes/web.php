@@ -13,14 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view("/","home")->name("home");
+Route::view("/","auth.login")->name("usuarios");
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::view("/admin","panel")->name("panel");
-Route::view("/productos","productos")->name("productos");
-Route::view("/usuarios","usuarios")->name("usuarios");
-Route::view("/ventas","ventas")->name("ventas");
-Route::view("/proveedores","proveedores")->name("proveedores");
-Route::view("/carrito","carrito")->name("carrito");
+Route::get('/usuarios', [App\Http\Controllers\HomeController::class, 'index'])->name('usuarios');
+Route::view("/categorias","categorias.categorias")->name("categorias");
+Route::view("/productos","productos.productos")->name("productos");
+Route::view("/ventas","ventas.ventas")->name("ventas");
+Route::view("/proveedores","proveedores.proveedores")->name("proveedores");
+Route::view("/cambios","cambios.cambios")->name("cambios");
+
+Route::get('/createCategoria',[App\Http\Controllers\CategoriasController::class,'vista'])->name('crearCategoria');
+
+Route::get('/createProveedor',[App\Http\Controllers\ProveedorController::class,'vista'])->name('crearProveedor');
+
+Route::get('/createProducto',[App\Http\Controllers\ProductController::class,'vista'])->name('crearProducto');
+
+Route::get('/createVenta',[App\Http\Controllers\VentaController::class,'vista'])->name('crearVenta');
+
+Route::get('/createDetalle',[App\Http\Controllers\detalleController::class,'vista'])->name('crearDetalle');

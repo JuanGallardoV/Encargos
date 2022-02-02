@@ -15,10 +15,9 @@ class Venta extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("cliente_id")->unsigned();
+            $table->string("fecha"); //formato dd/mm/aa
+            $table->integer("num_boleta")->unsigned();
             $table->integer("total")->unsigned();
-            $table->foreign("cliente_id")->references("id")->on("users")->onDelete("cascade");
-            $table->boolean("estado")->default(0);  //0: Pendiente  1:Completada
             $table->timestamps();
         });
     }
